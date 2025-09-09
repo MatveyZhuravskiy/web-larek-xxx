@@ -86,11 +86,14 @@ export interface IOrderItems {
 	items: string[];
 }
 
-export interface IOrder extends IOrderRequest {
-	readyОrder(): IOrderRequest;
+export interface IOrder {
+	payment: PaymentMethod;
+	address: string;
+	email: string;
+	phone: string;
+	readyОrder(total: number, items: string[]): IOrderRequest;
 	setDelivery(delivery: IDeliveryInfo): void;
 	setContacts(contacts: IContactInfo): void;
-	setOrderItems(orderItems: IOrderItems): void;
 }
 
 export interface IOrderResponse {

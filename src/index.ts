@@ -145,12 +145,6 @@ events.on(AppEvents.BASKET_CHANGED, (data: ProductId) => {
 
 // Заказ - информация о доставке
 events.on(AppEvents.ORDER_START, () => {
-	const orderList: IOrderItems = {
-		total: basket.total,
-		items: basket.getIdList(),
-	};
-	order.setOrderItems(orderList);
-
 	modal.render({
 		content: orderView.render({
 			valid: orderView.valid,
@@ -186,7 +180,7 @@ events.on(AppEvents.ORDER_CONTACTS_INPUT, () => {
 });
 
 events.on(AppEvents.ORDER_CONTACTS_SUBMIT, () => {
-	const apiObj: IOrderRequest = order.readyОrder();
+	const apiObj: IOrderRequest = order.readyОrder(basket.total, basket.getIdList());
 	api
 		.createOrder(apiObj)
 		.then((data: IOrderResponse) => {

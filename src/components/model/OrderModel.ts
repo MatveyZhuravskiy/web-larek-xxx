@@ -1,4 +1,4 @@
-import { IOrder, IOrderRequest, PaymentMethod, IDeliveryInfo, IContactInfo, IOrderItems, AppEvents } from '../../types';
+import { IOrder, IOrderRequest, PaymentMethod, IDeliveryInfo, IContactInfo, AppEvents } from '../../types';
 import { CommonModel } from './CommonModel';
 import { IEvents } from '../base/events';
 
@@ -7,9 +7,6 @@ export class OrderModel extends CommonModel<IOrder> implements IOrder {
 	protected _address: string;
 	protected _email: string;
 	protected _phone: string;
-	protected _total: number;
-	protected _items: string[];
-
 	constructor(data: Partial<IOrder>, events: IEvents) {
 		super(data, events);
 	}
@@ -46,21 +43,6 @@ export class OrderModel extends CommonModel<IOrder> implements IOrder {
 		return this._phone;
 	}
 
-	set total(value: number) {
-		this._total = value;
-	}
-
-	get total(): number {
-		return this._total;
-	}
-
-	set items(list: string[]) {
-		this._items = list;
-	}
-
-	get items(): string[] {
-		return this._items;
-	}
 
 	setDelivery(delivery: IDeliveryInfo): void {
 		this.payment = delivery.payment;
@@ -74,20 +56,15 @@ export class OrderModel extends CommonModel<IOrder> implements IOrder {
 		this.emitChanges(AppEvents.ORDER_CONTACTS_CHANGED);
 	}
 
-	setOrderItems(orderItems: IOrderItems): void {
-		this.total = orderItems.total;
-		this.items = orderItems.items;
-		this.emitChanges(AppEvents.ORDER_ITEMS_CHANGED);
-	}
 
-	readyОrder(): IOrderRequest {
+	readyОrder(total: number, items: string[]): IOrderRequest {
 		return {
 			payment: this._payment,
 			email: this._email,
 			phone: this._phone,
 			address: this._address,
-			total: this._total,
-			items: this._items,
+			total: total,
+			items: items,
 		};
 	}
 }
