@@ -40,10 +40,6 @@ export class FormView<T> extends CommonView<IFormValidation> {
 		this.setDisabled(this._submit, !value);
 	}
 
-	get valid(): boolean {
-		return this.inputList.every((item) => item.value.length > 0);
-	}
-
 	set error(value: string) {
 		this.setText(this._error, value);
 	}

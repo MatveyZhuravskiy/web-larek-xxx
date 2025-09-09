@@ -57,6 +57,14 @@ export class OrderModel extends CommonModel<IOrder> implements IOrder {
 	}
 
 
+	validateDelivery(): boolean {
+		return Boolean(this._payment && this._address && this._address.length > 0);
+	}
+
+	validateContacts(): boolean {
+		return Boolean(this._email && this._email.length > 0 && this._phone && this._phone.length > 0);
+	}
+
 	readyОrder(total: number, items: string[]): IOrderRequest {
 		return {
 			payment: this._payment,

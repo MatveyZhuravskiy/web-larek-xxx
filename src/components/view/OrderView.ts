@@ -46,14 +46,6 @@ export class OrderView extends FormView<IDeliveryInfo> {
 		return result;
 	}
 
-	set valid(value: boolean) {
-		super.valid = value;
-	}
-
-	get valid(): boolean {
-		const isInputValid = super.valid;
-		return isInputValid && this.payment !== '';
-	}
 
 	getActiveButton(): HTMLButtonElement | null {
 		if (this.onlineButton.classList.contains('button_alt-active')) {

@@ -75,9 +75,14 @@ const contactsForm = new ContactsView(cloneTemplate(contactsTemplate), events);
 const successOrder = new SuccessView(cloneTemplate(successTemplate), events);
 
 // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
-function validate(form: IForm) {
-	const validity: IFormValidation = { valid: form.valid };
-	form.render(validity);
+function validateDelivery() {
+	const validity: IFormValidation = { valid: order.validateDelivery() };
+	orderView.render(validity);
+}
+
+function validateContacts() {
+	const validity: IFormValidation = { valid: order.validateContacts() };
+	contactsForm.render(validity);
 }
 
 // === ОБРАБОТЧИКИ СОБЫТИЙ ===
@@ -147,36 +152,36 @@ events.on(AppEvents.BASKET_CHANGED, (data: ProductId) => {
 events.on(AppEvents.ORDER_START, () => {
 	modal.render({
 		content: orderView.render({
-			valid: orderView.valid,
+			valid: order.validateDelivery(),
 		}),
 	});
 });
 
 events.on(AppEvents.ORDER_DELIVERY_INPUT, () => {
-	validate(orderView);
 	const deliveryData: IDeliveryInfo = {
 		payment: orderView.payment as PaymentMethod,
 		address: orderView.address,
 	};
 	order.setDelivery(deliveryData);
+	validateDelivery();
 });
 
 events.on(AppEvents.ORDER_DELIVERY_SUBMIT, () => {
 	modal.render({
 		content: contactsForm.render({
-			valid: contactsForm.valid,
+			valid: order.validateContacts(),
 		}),
 	});
 });
 
 // Заказ - контактная информация
 events.on(AppEvents.ORDER_CONTACTS_INPUT, () => {
-	validate(contactsForm);
 	const contactsData: IContactInfo = {
 		email: contactsForm.email,
 		phone: contactsForm.phone,
 	};
 	order.setContacts(contactsData);
+	validateContacts();
 });
 
 events.on(AppEvents.ORDER_CONTACTS_SUBMIT, () => {
