@@ -5,6 +5,7 @@ export interface IPageView {
 
 export interface IModalView {
 	content: HTMLElement;
+	isOpen(): boolean;
 }
 
 export interface IModel {

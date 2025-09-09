@@ -95,7 +95,7 @@ events.on(AppEvents.CATALOG_CHANGED, (data: IProduct[]) => {
 });
 
 events.on(AppEvents.PRODUCT_SELECT, (data: ProductId) => {
-	!modalContainer.classList.contains('modal_active')
+	!modal.isOpen()
 		? modal.open()
 		: modal.close();
 
