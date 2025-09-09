@@ -100,9 +100,7 @@ events.on(AppEvents.CATALOG_CHANGED, (data: IProduct[]) => {
 });
 
 events.on(AppEvents.PRODUCT_SELECT, (data: ProductId) => {
-	!modal.isOpen()
-		? modal.open()
-		: modal.close();
+	!modal.isOpen() ? modal.open() : modal.close();
 
 	const product = catalog.getId(data.id);
 	if (product) {
@@ -185,7 +183,10 @@ events.on(AppEvents.ORDER_CONTACTS_INPUT, () => {
 });
 
 events.on(AppEvents.ORDER_CONTACTS_SUBMIT, () => {
-	const apiObj: IOrderRequest = order.readyОrder(basket.total, basket.getIdList());
+	const apiObj: IOrderRequest = order.readyOrder(
+		basket.total,
+		basket.getIdList()
+	);
 	api
 		.createOrder(apiObj)
 		.then((data: IOrderResponse) => {

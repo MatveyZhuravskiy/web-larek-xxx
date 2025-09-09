@@ -56,7 +56,6 @@ export class OrderModel extends CommonModel<IOrder> implements IOrder {
 		this.emitChanges(AppEvents.ORDER_CONTACTS_CHANGED);
 	}
 
-
 	validateDelivery(): boolean {
 		return Boolean(this._payment && this._address && this._address.length > 0);
 	}
@@ -65,7 +64,7 @@ export class OrderModel extends CommonModel<IOrder> implements IOrder {
 		return Boolean(this._email && this._email.length > 0 && this._phone && this._phone.length > 0);
 	}
 
-	readyОrder(total: number, items: string[]): IOrderRequest {
+	readyOrder(total: number, items: string[]): IOrderRequest {
 		return {
 			payment: this._payment,
 			email: this._email,

@@ -80,7 +80,6 @@ export interface IContactInfo {
 
 export type IOrderRequest = IDeliveryInfo & IContactInfo & IOrderItems;
 
-
 export interface IOrderItems {
 	total: number;
 	items: string[];
@@ -91,7 +90,7 @@ export interface IOrder {
 	address: string;
 	email: string;
 	phone: string;
-	readyОrder(total: number, items: string[]): IOrderRequest;
+	readyOrder(total: number, items: string[]): IOrderRequest;
 	setDelivery(delivery: IDeliveryInfo): void;
 	setContacts(contacts: IContactInfo): void;
 }
@@ -109,13 +108,13 @@ export enum AppEvents {
 	// Каталог и товары
 	CATALOG_CHANGED = 'catalog:items-changed',
 	PRODUCT_SELECT = 'card:select',
-	
+
 	// Корзина
 	BASKET_OPEN = 'basket:open',
 	BASKET_ADD_ITEM = 'basket:add',
 	BASKET_REMOVE_ITEM = 'basket:remove',
 	BASKET_CHANGED = 'basket:items-changed',
-	
+
 	// Оформление заказа
 	ORDER_START = 'order:open',
 	ORDER_DELIVERY_INPUT = 'order:input',
@@ -125,10 +124,10 @@ export enum AppEvents {
 	ORDER_CONTACTS_SUBMIT = 'contacts:submit',
 	ORDER_CONTACTS_CHANGED = 'order:contacts-changed',
 	ORDER_ITEMS_CHANGED = 'order:items-changed',
-	
+
 	// Завершение заказа
 	ORDER_SUCCESS_CLOSE = 'success:submit',
-	
+
 	// Модальные окна
 	MODAL_OPEN = 'modal:open',
 	MODAL_CLOSE = 'modal:close',
